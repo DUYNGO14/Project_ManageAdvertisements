@@ -5,7 +5,7 @@ Display content on TVs and LEDs in a shopping mall.
 
 ## Actors
 - Admin
-- TV/LED Device
+- Device
 
 ## Description
 MallMedia is a content management system designed to help admins manage the display of multimedia content on various TVs and LED screens throughout a shopping mall. Admins can schedule content to be shown at specific times and can ensure that devices connected to the system receive the appropriate content based on their schedules.
