@@ -1,7 +1,9 @@
 ﻿
 
 using Domain.Entities;
+using Domain.Repositories;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,5 +37,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<UserSeeder>();
         services.AddScoped<DeviceTypeSeeder>();
         services.AddScoped<IInitialSeeder, InitialSeeder>();
+
+        //dependency ịnection
+        services.AddScoped<IDeviceRepository,DeviceRepository>();
+        services.AddScoped<IScheduleRepository,ScheduleRepository>();
     }
 }
