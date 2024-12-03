@@ -20,5 +20,5 @@ public class Device
     public User User { get; set; }
 
     public ICollection<DeviceSchedule>? DeviceSchedules { get; set; }
-    public ICollection<DeviceDailyAvailability> DeviceDailyAvailabilities { get; set; }
+    public ICollection<DeviceDailyAvailability>? DeviceDailyAvailabilities { get; set; }
 }

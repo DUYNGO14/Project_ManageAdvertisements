@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Devices\Commands\" />
-    <Folder Include="Devices\Queries\" />
   </ItemGroup>
 
 </Project>
