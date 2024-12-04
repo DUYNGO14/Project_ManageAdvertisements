@@ -1,4 +1,5 @@
 ﻿
+using Application.Contents.DTO;
 
 namespace Application.Common;
 public class MergeJob
@@ -12,6 +13,6 @@ public class MergeJob
     public int Duration { get; set; }
     public string Resolution { get; set; }
     public List<string> OutputPaths { get; set; } = new List<string>();
-    //public TaskCompletionSource<List<MediaDto>> CompletionSource { get; set; } = new TaskCompletionSource<List<MediaDto>>();
+    public TaskCompletionSource<List<MediaDto>> CompletionSource { get; set; } = new TaskCompletionSource<List<MediaDto>>();
 }
 

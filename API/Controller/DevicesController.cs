@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controller;
 
-[Route("api/[controller]")]
+[Route("api/devices")]
 [ApiController]
 public class DevicesController(IMediator mediator) : ControllerBase
 {

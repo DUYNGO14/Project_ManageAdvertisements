@@ -12,7 +12,8 @@ namespace Application.Devices.DTO
                 .ForMember(d => d.Size, opt => opt.MapFrom(src => src.DeviceType!.Size))
                 .ForMember(d => d.DeviceType, opt => opt.MapFrom(src => src.DeviceType!.Name))
                 .ForMember(d => d.Resolution, opt => opt.MapFrom(src => src.DeviceType!.Resolution))
-                .ForMember(d => d.Description, opt => opt.MapFrom(src => src.Location!.Description));
+                .ForMember(d => d.Description, opt => opt.MapFrom(src => src.Location!.Description))
+                .ForMember(d=>d.DeviceDailyDtos, opt=>opt.MapFrom(src=>src.DeviceDailyAvailabilities.ToList()));
                 
             CreateMap<Schedule,DeScheduleDto>();
 

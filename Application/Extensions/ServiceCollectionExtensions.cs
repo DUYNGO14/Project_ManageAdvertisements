@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Interfaces;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +19,7 @@ public static class ServiceCollectionExtensions
 
         services.AddHttpContextAccessor();
 
-        //services.AddSingleton<IBackgroundServiceQueue, BackgroundServiceQueue>();
-        //services.AddHostedService<FileMergeService>();
+        services.AddSingleton<IBackgroundServiceQueue, BackgroundServiceQueue>();
+        services.AddHostedService<FileMergeService>();
     }
 }

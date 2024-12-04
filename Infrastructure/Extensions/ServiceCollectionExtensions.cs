@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders()
             .AddDefaultUI();
-
+        //seeder
         services.AddScoped<TimeSlotSeeder>();
         services.AddScoped<LocationSeeder>();
         services.AddScoped<DeviceSeeder>();
@@ -41,5 +41,8 @@ public static class ServiceCollectionExtensions
         //dependency ịnection
         services.AddScoped<IDeviceRepository,DeviceRepository>();
         services.AddScoped<IScheduleRepository,ScheduleRepository>();
+        services.AddScoped<IContentRepository,ContentRepository>();
+        services.AddScoped<IMediaRepository,MediaRepository>();
+   
     }
 }
