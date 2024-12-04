@@ -10,7 +10,6 @@ public class Media
     public int Size { get; set; }
     public int Duration { get; set; }
     public string Resolution { get; set; } = default!;
-
     public int ContentId { get; set; }
-    public Content Content { get; set; } = new();
+    public Content? Content { get; set; } 
 }

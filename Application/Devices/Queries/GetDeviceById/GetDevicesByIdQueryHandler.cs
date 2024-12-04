@@ -22,9 +22,6 @@ public class GetDevicesByIdQueryHandler(ILogger<GetDevicesByIdQueryHandler> logg
             Schedules.Add(sch);
         }
         deviceDto.SchedulesDtos = mapper.Map<List<DeScheduleDto>>(Schedules);
-
-        var deviceDaily = device.DeviceDailyAvailabilities?.ToList();
-        deviceDto.DeviceDailyDtos = mapper.Map<List<DeviceDailyDto>>(deviceDaily);
         return deviceDto;
     }
 }

@@ -52,7 +52,7 @@ public class DeviceRepository(AppDbContext dbContext) : IDeviceRepository
         var device = await dbContext.Devices
                                     .Include(d => d.Location)
                                     .Include(d => d.DeviceType)
-                                    .Include(d => d.DeviceSchedules)
+                                    .Include(d => d.DeviceSchedules!)
                                     .Include(d => d.DeviceDailyAvailabilities)
                                     .FirstOrDefaultAsync(d => d.Id == id);
         return device;
