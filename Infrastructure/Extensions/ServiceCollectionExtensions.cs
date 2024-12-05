@@ -43,6 +43,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IScheduleRepository,ScheduleRepository>();
         services.AddScoped<IContentRepository,ContentRepository>();
         services.AddScoped<IMediaRepository,MediaRepository>();
+        services.AddScoped<IMasterDataRepository,MasterDataRepository>();
    
     }
 }
