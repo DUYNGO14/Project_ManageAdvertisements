@@ -8,7 +8,7 @@ namespace Infrastructure.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options)
     : IdentityDbContext<User>(options)
 {
-    public DbSet<Device> Devices {  get; set; } 
+    public DbSet<Device> Devices { get; set; }
     public DbSet<DeviceType> DeviceTypes { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<TimeSlot> TimeSlots { get; set; }
@@ -18,6 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Media> Medias { get; set; }
     public DbSet<ScheduleTimeSlot> ScheduleTimeSlots { get; set; }
     public DbSet<DeviceDailyAvailability> DeviceDailyAvailability { get; set; }
+    public DbSet<DeviceDailyTimeSlot> DeviceDailyTimeSlot { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -88,12 +89,25 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
         modelBuilder.Entity<DeviceDailyAvailability>(entity =>
         {
-            entity.HasKey(d => new { d.DeviceID, d.DateTime });
+            entity.HasKey(d => d.Id);
             // Device - DeviceDailyAvailability : One-to-Many
             entity.HasOne(da => da.Device)
                   .WithMany(d => d.DeviceDailyAvailabilities)
                   .HasForeignKey(da => da.DeviceID)
                   .OnDelete(DeleteBehavior.Cascade); // Xóa theo chuỗi
+        });
+
+        // DeviceDailyAvailability to TimeSlot many-to-many relationship
+        modelBuilder.Entity<DeviceDailyTimeSlot>(entity =>
+        {
+            entity.HasKey(dt => new { dt.DeviceDailyAvailabilityId, dt.TimeSlotId });
+            entity.HasOne(dt => dt.DeviceDailyAvailability)
+               .WithMany(d => d.DeviceTimeSlots)
+               .HasForeignKey(dt => dt.DeviceDailyAvailabilityId);
+
+            entity.HasOne(dt => dt.TimeSlot)
+                .WithMany(t => t.DeviceTimeSlots)
+                .HasForeignKey(dt => dt.TimeSlotId);
         });
     }
 

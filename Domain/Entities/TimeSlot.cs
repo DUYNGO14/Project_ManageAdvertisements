@@ -9,4 +9,5 @@ public class TimeSlot
     public bool IsPeak { get; set; } // true là giờ cao điểm 
 
     public ICollection<ScheduleTimeSlot>? ScheduleSlots { get; set; }
+    public ICollection<DeviceDailyTimeSlot> DeviceTimeSlots { get; set; } // Navigation property
 }
