@@ -23,25 +23,6 @@ public class MasterDataRepository(AppDbContext dbContext) : IMasterDataRepositor
         return await dbContext.TimeSlots.AsNoTracking().ToListAsync();
     }
 
-
-    public async Task<IEnumerable<Location>> GetLocations(int? floor, string department)
-    {
-        //if (floor.HasValue && floor.Value > 0)
-        //{
-        //    return await dbContext.Locations.Where(l => l.Floor == floor).ToListAsync();
-        //}
-        //if (!string.IsNullOrWhiteSpace(department))
-        //{
-        //    return await dbContext.Locations.Where(l => l.Department.ToLower().Equals(department.ToLower())).ToListAsync();
-        //}
-        //if ((floor.HasValue && floor.Value > 0) && !string.IsNullOrWhiteSpace(department))
-        //{
-        //    return await dbContext.Locations.Where(l => l.Department.ToLower().Equals(department.ToLower()) && l.Floor == floor).ToListAsync();
-        //}
-        //return await this.GetAllLocations();
-        return await dbContext.Locations.AsNoTracking().ToListAsync();
-    }
-
     public Task<(List<FloorDeviceResult>, List<DepartmentDeviceResult>)> GetOptionSelectLocations(string[] deviceType)
     {
         throw new NotImplementedException();

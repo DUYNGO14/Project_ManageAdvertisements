@@ -100,18 +100,44 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.DeviceDailyAvailability", b =>
                 {
-                    b.Property<int>("DeviceID")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("DateTime")
                         .HasColumnType("date");
 
-                    b.Property<int>("TotalAvailableMinutes")
+                    b.Property<int>("DeviceID")
                         .HasColumnType("int");
 
-                    b.HasKey("DeviceID", "DateTime");
+                    b.Property<double>("TotalAvailableMinutes")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceID");
 
                     b.ToTable("DeviceDailyAvailability");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DeviceDailyTimeSlot", b =>
+                {
+                    b.Property<int>("DeviceDailyAvailabilityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TimeSlotId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalAvailableMinutes")
+                        .HasColumnType("float");
+
+                    b.HasKey("DeviceDailyAvailabilityId", "TimeSlotId");
+
+                    b.HasIndex("TimeSlotId");
+
+                    b.ToTable("DeviceDailyTimeSlot");
                 });
 
             modelBuilder.Entity("Domain.Entities.DeviceSchedule", b =>
@@ -543,6 +569,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Device");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DeviceDailyTimeSlot", b =>
+                {
+                    b.HasOne("Domain.Entities.DeviceDailyAvailability", "DeviceDailyAvailability")
+                        .WithMany("DeviceTimeSlots")
+                        .HasForeignKey("DeviceDailyAvailabilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.TimeSlot", "TimeSlot")
+                        .WithMany("DeviceTimeSlots")
+                        .HasForeignKey("TimeSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeviceDailyAvailability");
+
+                    b.Navigation("TimeSlot");
+                });
+
             modelBuilder.Entity("Domain.Entities.DeviceSchedule", b =>
                 {
                     b.HasOne("Domain.Entities.Device", "Device")
@@ -668,6 +713,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("DeviceSchedules");
                 });
 
+            modelBuilder.Entity("Domain.Entities.DeviceDailyAvailability", b =>
+                {
+                    b.Navigation("DeviceTimeSlots");
+                });
+
             modelBuilder.Entity("Domain.Entities.DeviceType", b =>
                 {
                     b.Navigation("Devices");
@@ -687,6 +737,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.TimeSlot", b =>
                 {
+                    b.Navigation("DeviceTimeSlots");
+
                     b.Navigation("ScheduleSlots");
                 });
 #pragma warning restore 612, 618

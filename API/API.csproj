@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 		<Folder Include="Hubs\" />
+		<Folder Include="wwwroot\uploads\" />
 	</ItemGroup>
 
 	<ItemGroup>
