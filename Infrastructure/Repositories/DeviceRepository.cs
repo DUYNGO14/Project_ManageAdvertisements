@@ -1,5 +1,4 @@
-﻿using Dapper;
-using Domain.Constants;
+﻿using Domain.Constants;
 using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Data;
@@ -53,8 +52,20 @@ public class DeviceRepository(AppDbContext dbContext) : IDeviceRepository
                                     .Include(d => d.Location)
                                     .Include(d => d.DeviceType)
                                     .Include(d => d.DeviceSchedules!)
-                                    .Include(d => d.DeviceDailyAvailabilities)
+                                    .Include(d => d.DeviceDailyAvailabilities)!.ThenInclude(x=>x.DeviceTimeSlots)
                                     .FirstOrDefaultAsync(d => d.Id == id);
         return device;
+    }
+
+    public async Task<List<Device>> GetDeviceForSchedule(string location, string DeviceType, DateTime StartDate, DateTime EndDate, int TotalDuration)
+    {
+        var query = await dbContext.Devices
+                        .Include(d=>d.DeviceType)
+                        .Include(d => d.Location)
+                        .Include(d=>d.DeviceDailyAvailabilities!).ThenInclude(x=>x.DeviceTimeSlots)
+                        .Where(d=>d.DeviceType!.Name.Contains(DeviceType) 
+                                  && d.Location!.Description!.Contains(location))
+                        .ToListAsync();
+        return null;
     }
 }
