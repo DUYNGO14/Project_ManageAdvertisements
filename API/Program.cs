@@ -8,9 +8,18 @@ try
     var builder = WebApplication.CreateBuilder(args);
     // Add services to the container.
     builder.AddPresentation();
-
+    // Add CORS policy to allow requests from localhost:7220
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowLocalhost", policy =>
+            policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()  
+            .AllowAnyMethod());
+    });
     var app = builder.Build();
-
+    // Enable CORS globally (apply to all controllers)
+    app.UseCors("AllowLocalhost");
     //seed
     var scope = app.Services.CreateScope();
     var seeder = scope.ServiceProvider.GetRequiredService<IInitialSeeder>();
