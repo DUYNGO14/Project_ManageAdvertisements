@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Admin\Schedule\" />
+    <Folder Include="Pages\Client\" />
+    <Folder Include="Pages\Auth\" />
+    <Folder Include="wwwroot\js\content\" />
+    <Folder Include="wwwroot\js\schedule\" />
+  </ItemGroup>
+
 </Project>
